@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions name="JKECSMR" targetNamespace="file://target.files" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="file://target.files" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://www.JKECSMRTI.com/schemas/JKECSMRTIInterface" xmlns:xsd2="http://www.JKECSMRTO.com/schemas/JKECSMRTOInterface">
+  <wsdl:types>
+    <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.JKECSMRTI.com/schemas/JKECSMRTIInterface" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cbl="http://www.JKECSMRTI.com/schemas/JKECSMRTIInterface">
+      <complexType name="DFHCOMMAREA">
+        <sequence>
+          <element form="qualified" name="jkepcom_principle_data">
+            <simpleType>
+              <restriction base="decimal">
+                <minInclusive value="-999999999.99"/>
+                <maxInclusive value="999999999.99"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element form="qualified" name="jkepcom_number_of_years">
+            <simpleType>
+              <restriction base="short">
+                <minInclusive value="-9999"/>
+                <maxInclusive value="9999"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element form="qualified" name="jkepcom_quoted_interest_rate">
+            <simpleType>
+              <restriction base="decimal">
+                <minInclusive value="-99.999"/>
+                <maxInclusive value="99.999"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <element name="DFHCOMMAREA" type="cbl:DFHCOMMAREA">
+        <annotation>
+          <documentation source="com.ibm.etools.xmlent.batch">10.1.1.V20120513_0711</documentation>
+        </annotation>
+      </element>
+    </schema>
+    <schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.JKECSMRTO.com/schemas/JKECSMRTOInterface" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:cbl="http://www.JKECSMRTO.com/schemas/JKECSMRTOInterface">
+      <complexType name="DFHCOMMAREA">
+        <sequence>
+          <element form="qualified" name="jkepcom_return_month_payment">
+            <simpleType>
+              <restriction base="decimal">
+                <minInclusive value="-9999999.99"/>
+                <maxInclusive value="9999999.99"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element form="qualified" name="jkepcom_errmsg">
+            <annotation>
+              <appinfo source="http://www.wsadie.com/appinfo">
+                <initialValue kind="SPACE"/>
+              </appinfo>
+            </annotation>
+            <simpleType>
+              <restriction base="string">
+                <maxLength value="80"/>
+                <whiteSpace value="collapse"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element form="qualified" name="jkepcom_program_retcode">
+            <annotation>
+              <appinfo source="http://www.wsadie.com/appinfo">
+                <level88>jke02_request_success value 0</level88>
+              </appinfo>
+            </annotation>
+            <simpleType>
+              <restriction base="short">
+                <minInclusive value="0"/>
+                <maxInclusive value="9999"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </sequence>
+      </complexType>
+      <element name="DFHCOMMAREA" type="cbl:DFHCOMMAREA">
+        <annotation>
+          <documentation source="com.ibm.etools.xmlent.batch">10.1.1.V20120513_0711</documentation>
+        </annotation>
+      </element>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="JKECSMRTOperationRequest">
+    <wsdl:part element="xsd1:DFHCOMMAREA" name="DFHCOMMAREAPart"/>
+  </wsdl:message>
+  <wsdl:message name="JKECSMRTOperationResponse">
+    <wsdl:part element="xsd2:DFHCOMMAREA" name="DFHCOMMAREAPart"/>
+  </wsdl:message>
+  <wsdl:portType name="JKECSMRPortType">
+    <wsdl:operation name="JKECSMRTOperation">
+      <wsdl:input message="tns:JKECSMRTOperationRequest" name="JKECSMRTOperationRequest"/>
+      <wsdl:output message="tns:JKECSMRTOperationResponse" name="JKECSMRTOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="JKECSMRBinding" type="tns:JKECSMRPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="JKECSMRTOperation">
+      <soap:operation soapAction="urn:JKECSMR" style="document"/>
+      <wsdl:input name="JKECSMRTOperationRequest">
+        <soap:body parts="DFHCOMMAREAPart" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="JKECSMRTOperationResponse">
+        <soap:body parts="DFHCOMMAREAPart" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JKECSMRTService">
+    <wsdl:port binding="tns:JKECSMRBinding" name="JKECSMRPort">
+    <soap:address location="http://10.129.7.233:30091/cics/services/JKECSMRT"/>
+      <!-- <soap:address location="http://9.42.88.93:1654/cics/services/JKECSMRT"/> -->
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
